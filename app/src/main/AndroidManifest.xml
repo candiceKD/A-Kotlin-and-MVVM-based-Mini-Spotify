@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+<!--    这是允许我们这个app使用Internet的permission 配置在这里-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+<!--    最外层application也会有一个对应的class 叫MainApplication 把class name写在这里, application也有lifecycle, 两个阶段, onCreate()和onDestroy()-->
     <application
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -10,6 +15,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Spotify"
+        android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
@@ -23,5 +29,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

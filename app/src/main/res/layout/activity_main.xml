@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--XML layout也是类似与compose里面是一层一层的, LinearLayout 就是compose里面的Column和Row, 当orientation是vertical是纵向排布的, 当是horizontal就是横向排布的-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+<!--    FrameLayout就是compose layout里面的Box-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true" />
+
+<!--        我们要在老的xml文件中加一个新的ui, 用compose来写, 又不想把整个文件refactor, 就这样写-->
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/player_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" />
+
+    </FrameLayout>
+
+<!--    这个是加了一条1dp的分隔线-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_60" />
+
+<!--    因为我们设置navigation tab为BottomNavigationView, 因此BottomNavigationView决定了这个tab的位置-->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:menu="@menu/bottom_nav_menu" />
+<!--    而在res文件夹内读文件就用@加文件夹的名字/XML文件名-->
+
+</LinearLayout>

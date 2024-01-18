@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+<!--    把所有的destination都添加到nav_graph里面, 这些screen都是Fragment-->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.laioffer.spotify.ui.home.HomeFragment"
+        android:label="HomeFragment">
+<!--        可以通过design, 系统直接生成一个action, 使得能够实现跳转-->
+        <action
+            android:id="@+id/action_homeFragment_to_playlistFragment"
+            app:destination="@id/playlistFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.laioffer.spotify.ui.favorite.FavoriteFragment"
+        android:label="FavoriteFragment">
+        <!--        可以通过design, 系统直接生成一个action, 使得能够实现跳转-->
+        <action
+            android:id="@+id/action_favoriteFragment_to_playlistFragment"
+            app:destination="@id/playlistFragment" />
+    </fragment>
+
+<!--    要去新的页面, 那要把这个新的Fragment加在nav_graph里面-->
+    <!--        name就是这个fragment的path-->
+    <fragment
+        android:id="@+id/playlistFragment"
+        android:name="com.laioffer.spotify.ui.playlist.PlaylistFragment"
+        android:label="PlaylistFragment">
+<!--        代表需要接受一个argument 就是album -->
+        <argument
+            android:name="album"
+            app:argType="com.laioffer.spotify.datamodel.Album" />
+    </fragment>
+
+</navigation>
