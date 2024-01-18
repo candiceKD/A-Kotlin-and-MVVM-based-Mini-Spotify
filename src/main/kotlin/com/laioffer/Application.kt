@@ -81,6 +81,24 @@ fun Application.module() {
             //先把feed.json文件的jsonString读出来,然后塞到response里面
             //给一个返回内容的类型ContentType.Application.Json
             //为什么要用this::class.java.classLoader.getResource? 这是一个什么语法?????
+/*
+            this::class.java.classLoader：
+
+            this 指当前类的实例。
+            ::class 是 Kotlin 中获取类信息的语法。它类似于 Java 中的 .getClass()。
+            java 是一个转换，将 Kotlin 的 KClass 转换为 Java 的 Class。
+            classLoader 是 Java 类的一个属性，用于加载类和资源。
+            getResource("feed.json")：
+
+            这是 ClassLoader 类的一个方法，用于查找名为 "feed.json" 的资源。
+            如果找到，它返回一个 URL 对象；如果没有找到，返回 null。
+            ?.readText()：
+
+            这里使用了 Kotlin 的安全调用操作符 ?.。
+            这意味着如果 getResource 方法返回的不是 null，就调用 readText() 方法。
+            readText() 是 Kotlin 的一个扩展方法，用于从 URL 读取所有文本内容，并将其作为字符串返回。
+            如果 getResource 返回 null，那么整个表达式的结果也是 null
+*/
             val jsonString = this::class.java.classLoader.getResource("feed.json")?.readText()
             call.respondText(jsonString ?: "", ContentType.Application.Json)
         }
@@ -93,6 +111,7 @@ fun Application.module() {
         //json文件是不能被解析的不能直接通过id拿到item,所以需要把json文件deserialized成一个kotlin list, 这样就能够通过index去拿到具体的一个item
         get("/playlist/{id}") {
             //如何handle nullable的情况? 用?.let{}
+            //let里面的parameter是一个lambda function,所以写在小括号外面, 并且lambda function里面传入的是let拿到的不是null的结果
             this::class.java.classLoader.getResource("playlists.json")?.readText()?.let { jsonString ->
                 //deserialization的方法,把json从string decode, 这个函数需要两个parameter, 一个是解码器,一个是string
                 //因为playlists是一个list<playlist>所以需要用ListSerializer, 而Playlist又需要继续解码
